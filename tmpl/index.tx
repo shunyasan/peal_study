@@ -2,50 +2,54 @@
 
 : override content -> {
 
-<h1 style="padding: 70px; text-align: center; font-size: 80px; line-height: 1; letter-spacing: -2px;">Scheduler!</h1>  
+<h1 style="padding: 70px; text-align: center; font-size: 80px; line-height: 1; letter-spacing: -2px;">Scheduler</h1>  
 
 <hr />
 
-<form class="form-inline" method="POST" action="<: uri_for('/post') :>">
-    <div class="form-group">
-        <label>タイトル</label>
-        <input type="text" class="form-control" name="title" placeholder="例: Perlの勉強">
-    </div>
-    <div class="form-group">
-        <label>日付</label>
-        <input type="text" class="form-control" name="date" placeholder="例: 2015/03/10">
-    </div>
-    <button type="submit" class="btn btn-default">登録</button>
-</form>
-
+<div>
+    <p class="text-center h3 mb-3">登録</p>
+        <form class="form-inline justify-content-center" method="POST" action="<: uri_for('/post') :>">
+            <div class="form-group">
+                <label>タイトル</label>
+                <input type="text" class="form-control mx-3" name="title" placeholder="例: Perlの勉強">
+            </div>
+            <div class="form-group">
+                <label>日付</label>
+                <input type="text" class="form-control mx-3" name="date" placeholder="例: 2015/03/10">
+            </div>
+            <button type="submit" class="btn btn-dark">登録</button>
+        </form>
+</div>
 <hr/>
-<a style="margin: 70px" href="<: uri_for('/?order=ASC') :>">昇順</a>
-<a style="margin: 70px" href="<: uri_for('/?order=DESC') :>">降順</a>
-<hr/>
-
+<div class="mt-5 mb-3 text-center">
+    <a style="margin: 70px" href="<: uri_for('/?order=ASC') :>">昇順</a>
+    <a style="margin: 70px" href="<: uri_for('/?order=DESC') :>">降順</a>
+</div>
 <table class="table">
-<thead>
+    <thead>
         <tr>
             <th>タイトル</th>
             <th>日時</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
-<tbody>
-  :for $schedules->$schedule {
-  <tr>
-    <td><: $schedule.schedule.title :></td>
-    <td class="<: $schedule.color :>"><: $schedule.schedule.date.strftime("%Y/%m/%d") :></td>
-    <td>
-    <form method="POST" action="<: uri_for('/schedules/'~$schedule.schedule.id~'/delete'):>">
-    <button type="submit" class="btn btn-danger">削除</button>
-    </form>
-    </td>
-    <td>
-    <a class="btn btn-primary" href="<: uri_for('/edit/'~$schedule.schedule.id~'') :>">編集</a>
-    </td>
-  </tr>
-  :}
-</tbody>
+    <tbody>
+    :for $schedules->$schedule {
+        <tr>
+            <td><: $schedule.schedule.title :></td>
+            <td class="<: $schedule.color :>"><: $schedule.schedule.date.strftime("%Y/%m/%d") :></td>
+            <td>
+            <form method="POST" action="<: uri_for('/delete/'~$schedule.schedule.id~''):>">
+                <button type="submit" class="btn btn-danger">削除</button>
+            </form>
+            </td>
+            <td>
+              <a class="btn btn-outline-dark" href="<: uri_for('/edit/'~$schedule.schedule.id~'') :>">編集</a>
+            </td>
+        </tr>
+    :}
+    </tbody>
 </table>
 
 : }
