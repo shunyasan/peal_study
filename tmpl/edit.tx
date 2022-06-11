@@ -1,0 +1,21 @@
+: cascade "include/layout.tx"
+
+: override content -> {
+
+<h1 style="padding: 70px; text-align: center; font-size: 80px; line-height: 1; letter-spacing: -2px;">編集 Scheduler</h1>  
+
+<hr />
+
+<form class="form-inline" method="POST" action="<: uri_for('/edit/'~$schedule.id~'') :>">
+    <div class="form-group">
+        <label>タイトル</label>
+        <input type="text" class="form-control" value="<: $schedule.title :>" name="title" placeholder="例: Perlの勉強">
+    </div>
+    <div class="form-group">
+        <label>日付</label>
+        <input type="text" class="form-control" value="<: $schedule.date.strftime("%Y/%m/%d") :>" name="date" placeholder="例: 2015/03/10">
+    </div>
+    <button type="submit" class="btn btn-default">登録</button>
+</form>
+
+: }
